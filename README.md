@@ -6,4 +6,5 @@ The command to run statsd is:
 An example configuration file is located in [exampleConfig.js](https://github.com/etsy/statsd/blob/master/exampleConfig.js), for Kubernetes deployments we supply this in a config map mounted as a volume.
 
 To run this docker image:
-`docker run -v /path/to/configfolder:/statsd-config ocadotechnology/statsd`
+`docker run -v /path/to/configfolder:/statsd-config ocadotechnology/statsd:sometag`
+Note we don't push latest on this repository so check the releases list for available tags.
