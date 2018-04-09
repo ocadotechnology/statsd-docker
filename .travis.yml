@@ -1,26 +1,22 @@
 sudo: required
 services:
-  - docker
+- docker
 env:
   global:
-    - REGISTRY_USER=ocadotechnology
-    # REGISTRY_PASS=...
-    - secret: "<something long>"
-    - IMAGE_NAME=ocadotechnology/statsd
-
+  - REGISTRY_USER=ocadotechnologygithub
+  - IMAGE_NAME=ocadotechnology/statsd
+  - secure: DeQgkFVTpHfla3mWbGtxvK9DVAksrXGDs31Hk6HHml5PUB9mXZoCknbrpiz7EkNUttTSD5dP2CLIxV8ZH2+iHEXCmFyqDZIg4RkgQzjnCaGjwZqjVGoZ38xsdLXq2K/YAFCaVN5sjcO4OqFYAIJ7SsWomfmejQdlUImGaP6lMQwTim7EuaL2zQ+29yQMFjmdiJInNWPP5j6+u/RI7WIH/GbHzSiGEhoR/lHbsyDe+vtL23Cp7Xj8IUL1NjwW52uRmpWLvHC+3uPI0SoGbKU/ZshqqKFY1Epy0+UXwCZpb2xROfcDFOGpBV7l+Uxi204gvVOV2ZH9oeDucNgF5LzCWkZkpexhCFKEV8ZCPzALT7aDX0fCWLbeH8c3nxEerwBT7S69il3KHAHA4y3a9eSiGagKt3TyfPv8yxpvc2LhgjlqxQR5DYPr4fwTwWf5qzvpDHLcLijyN/ig5fYJTptpnE+dF7aEUXT+aj147364oiAntfmfjSXhvxG7qm7sDQATjoQKrGAdfpTANjNKS0i9EIFm6Yc30YFncVUmHhFLFPMe+qZcXabu52F9wLf/3ALwPLlOTQB++D6E15/MXLVAevbm7hVHsPdoYVAmpevBdKm1V2hTnubpqDFI17XHawEdIBy1eI537uimzmYSfVNeudO1H4M8bfohs0II8CTvNa8=
 before_script:
-  - docker pull "$IMAGE_NAME" || true
+- docker pull "$IMAGE_NAME" || true
 script:
-  - docker build --pull --cache-from "$IMAGE_NAME" --tag "$IMAGE_NAME" .
-  - python setup.py test
-
+- docker build --pull --cache-from "$IMAGE_NAME" --tag "$IMAGE_NAME" .
+- python setup.py test
 after_script:
-  - docker images
-
+- docker images
 before_deploy:
-  - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
-  - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
-  - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${TRAVIS_COMMIT}"
+- docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
+- docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
+- docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${TRAVIS_COMMIT}"
 deploy:
   provider: script
   script: docker push "${IMAGE_NAME}:latest" && docker push "${IMAGE_NAME}:${TRAVIS_COMMIT}"
