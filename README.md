@@ -1,4 +1,4 @@
-# statsd-docker
+# statsd-docker [![Build Status](https://travis-ci.org/ocadotechnology/statsd-docker.svg?branch=master)](https://travis-ci.org/ocadotechnology/statsd-docker)
 Docker image which contains node and [statsd](https://github.com/etsy/statsd) only.
 ## Configuration/running
 The command to run statsd is:
