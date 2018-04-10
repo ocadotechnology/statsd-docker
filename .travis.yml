@@ -1,0 +1,45 @@
+language: node
+sudo: required
+services:
+- docker
+env:
+  global:
+  - REGISTRY_USER=ocadotechnologygitlab
+  - IMAGE_NAME=ocadotechnology/statsd
+  - VCS_SOURCE="https://github.com/${TRAVIS_REPO_SLUG}"
+  - secure: YbNxrr1D1AkcqR6YGFvwQIkxD6X6fYt5qSr6Cc+yTVQgh81kaJEfz30iu39rfO3mb6kHvVnfxF2xOnF65gc67tShxvYQTMGwmRcmk5cDd+VKS23XPicvta/hrs90cIF6XQBAseoAqRGRyE8s70mELEb60GuwERvIkcJV/dppCYcIkf3H977OdtIwIAfWNTPoIVVhHID70Edjg33oJtoVu3NBeXZcJIJCw0vy649NBSrSgp2j+YZRxbaAUizSslVQJ1c6tYnP12dCzkHHVtC+mj5fWxwjTi//vwknckB4YFMeH7SVjU12VB6XYzjFYxrSLaWqCuwWjcDLrgx5RS0tAZQeD+sX5xCeXh8UenEsAvx5TyNLfuezlS3/+xZ6RKhtNOuWWT+/QgDHlpZ2s/LISqgchW2yWp0fbtnuz+WhLmSbtCTKVrR/++yDtk4QiiFJFG8WtI4903Cjg9A9INl3Zmiw9THuW8sHHJ6gGuaN8IPH9ydstWjx7Q62qDW+3nbEv6cpfF7MsVaD4IqYzj4JWv0ZU2ah9G5sk4WHFF4HtEHu3yO3EQuyShl8hYvPM/oG7bdGYASNBYkEBNEj/choaDD/1VV0jiCwegeWbxxVnSA8XsUiWsD5xs4KC6bh3lZPMqvzZpKxyh7NrAncjO0xjo2BCtzG8/E13uP6n/ZNXmg=
+before_install:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -o Dpkg::Options::="--force-confnew" install docker-ce -y  
+before_script:
+- docker pull "$IMAGE_NAME" || true
+script:
+- |
+  docker build --pull --cache-from "$IMAGE_NAME" --tag "$IMAGE_NAME" \
+  --label="org.label-schema.build-date=$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+  --label="org.label-schema.vendor=Ocado Technology" \
+  --label="org.label-schema.schema-version=1.0" \
+  --label="org.label-schema.vcs-url=${VCS_SOURCE}" \
+  --label="org.label-schema.version=${TRAVIS_TAG}" \
+  --label="org.label-schema.vcs-ref=${TRAVIS_COMMIT}" \
+  --label="org.opencontainers.image.created=$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+  --label="org.opencontainers.image.vendor=Ocado Technology" \
+  --label="org.opencontainers.image.source=${VCS_SOURCE}" \
+  --label="org.opencontainers.image.version=${TRAVIS_TAG}" \
+  --label="org.opencontainers.image.revision=${TRAVIS_COMMIT}" \
+  --label="org.opencontainers.image.authors=$(git log --format='%aE' Dockerfile | sort -u | tr '\n' ' ')" \
+  .
+after_script:
+- docker images
+before_deploy:
+- docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
+- docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${TRAVIS_TAG}"
+deploy:
+  provider: script
+  script: docker push "${IMAGE_NAME}:${TRAVIS_TAG}"
+  if: tag IS present
+  on:
+    branch: master
+
