@@ -8,3 +8,9 @@ An example configuration file is located in [exampleConfig.js](https://github.co
 To run this docker image:
 `docker run -v /path/to/configfolder:/statsd-config ocadotechnology/statsd:sometag`
 Note we don't push latest on this repository so check the releases list for available tags.
+
+## Snyk Validation
+This project can be set-up with snyk to monitor any vulnerabilities introduced through dependencies. To add this to your own snyk dashboard, fork this repository and replace the final two secure environment variables with: 
+`SNYK_ORG=<your-org-name-here>` and 
+`SNYK_TOKEN=<your-snyk-token-here>`
+You can then add your own policy path if desired in a file named `.snyk`

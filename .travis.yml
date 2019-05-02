@@ -1,44 +1,30 @@
-language: node
+language: node_js
+node_js:
+- "6"
 sudo: required
 services:
 - docker
 env:
   global:
   - REGISTRY_USER=ocadotechnologygitlab
-  - IMAGE_NAME=ocadotechnology/statsd
   - VCS_SOURCE="https://github.com/${TRAVIS_REPO_SLUG}"
-  - secure: YbNxrr1D1AkcqR6YGFvwQIkxD6X6fYt5qSr6Cc+yTVQgh81kaJEfz30iu39rfO3mb6kHvVnfxF2xOnF65gc67tShxvYQTMGwmRcmk5cDd+VKS23XPicvta/hrs90cIF6XQBAseoAqRGRyE8s70mELEb60GuwERvIkcJV/dppCYcIkf3H977OdtIwIAfWNTPoIVVhHID70Edjg33oJtoVu3NBeXZcJIJCw0vy649NBSrSgp2j+YZRxbaAUizSslVQJ1c6tYnP12dCzkHHVtC+mj5fWxwjTi//vwknckB4YFMeH7SVjU12VB6XYzjFYxrSLaWqCuwWjcDLrgx5RS0tAZQeD+sX5xCeXh8UenEsAvx5TyNLfuezlS3/+xZ6RKhtNOuWWT+/QgDHlpZ2s/LISqgchW2yWp0fbtnuz+WhLmSbtCTKVrR/++yDtk4QiiFJFG8WtI4903Cjg9A9INl3Zmiw9THuW8sHHJ6gGuaN8IPH9ydstWjx7Q62qDW+3nbEv6cpfF7MsVaD4IqYzj4JWv0ZU2ah9G5sk4WHFF4HtEHu3yO3EQuyShl8hYvPM/oG7bdGYASNBYkEBNEj/choaDD/1VV0jiCwegeWbxxVnSA8XsUiWsD5xs4KC6bh3lZPMqvzZpKxyh7NrAncjO0xjo2BCtzG8/E13uP6n/ZNXmg=
+  - SNYK_MODE=WARN
+  - secure: "YbNxrr1D1AkcqR6YGFvwQIkxD6X6fYt5qSr6Cc+yTVQgh81kaJEfz30iu39rfO3mb6kHvVnfxF2xOnF65gc67tShxvYQTMGwmRcmk5cDd+VKS23XPicvta/hrs90cIF6XQBAseoAqRGRyE8s70mELEb60GuwERvIkcJV/dppCYcIkf3H977OdtIwIAfWNTPoIVVhHID70Edjg33oJtoVu3NBeXZcJIJCw0vy649NBSrSgp2j+YZRxbaAUizSslVQJ1c6tYnP12dCzkHHVtC+mj5fWxwjTi//vwknckB4YFMeH7SVjU12VB6XYzjFYxrSLaWqCuwWjcDLrgx5RS0tAZQeD+sX5xCeXh8UenEsAvx5TyNLfuezlS3/+xZ6RKhtNOuWWT+/QgDHlpZ2s/LISqgchW2yWp0fbtnuz+WhLmSbtCTKVrR/++yDtk4QiiFJFG8WtI4903Cjg9A9INl3Zmiw9THuW8sHHJ6gGuaN8IPH9ydstWjx7Q62qDW+3nbEv6cpfF7MsVaD4IqYzj4JWv0ZU2ah9G5sk4WHFF4HtEHu3yO3EQuyShl8hYvPM/oG7bdGYASNBYkEBNEj/choaDD/1VV0jiCwegeWbxxVnSA8XsUiWsD5xs4KC6bh3lZPMqvzZpKxyh7NrAncjO0xjo2BCtzG8/E13uP6n/ZNXmg="  #REGISTRY_PASS=
+  - secure: "oaLOoZzQTY/4t9wgEtKfX5m1v+tirvUFtc/gMrKUeBxoFaG07jnhr/X5p4LP1XgzK+eBknFU7O6/vsZw0UYZ8R5uszhi4ahP/ug7fSYvXT9dY2F9IAGspu8JkwoFPAFL0wikDOpNMiyMdCZKJNsAF3gyelnmomICLCKtuT2mjpSIkQTi+XyqViQ0o2nyPsWur82dR20es0YqQFpGlp+EM95XQEKDMFh8/7GcvoGtSo8JwEq/pWIlZCRwCm6NTSDUGujSNSiUsdvET1cJgoK+3Hzm7Ccex3JcmWFOjHAxHoEYR69LQm+7XNP7pdT1eYd/YlWqqUDXeqhDrerQj0Kv3ZwmIACFpbak1bJmVDg/7YCeQ3JZweCZpGS5I9NKHwbeDwwz3PhAkFAzGBfFjrgdZ91gmYaEYnuam8kBxBs5Y8VAoCft9nyqXbpQY7z9yB5kwydPPdUdYmUKabhHT4yarsvP3Efbnz2C6clmw//2BgmzfcL6XuCLLvG8d093v/TegtnVWm7AWo0/Gz2rqCSZSxbxdUC+ar1lSFLZatkd2DFi7PrDkqAe7OktvPz9a7E6KU1KhLX2x4qjxuw7XlpsM6n6Fz5u3w/xMT4ZeWkwiJWMIuuMhVMEDGW0httVEjvwFyYu3eFhTiSFWZHyHOe8kiVY15V3ZpfNtjsg+j1PtCc=" #SNYK_ORG=
+  - secure: "meptwbsQls6iwpPaDT4z7wrgdeLt95iS/q/MY7L52YEua+7tknhCLOknZypZ9OzjpYb0CPQm6eRzG+g8TLNI3e0lKdR3skp7aumhDUPRhuXusYADrr14E7qBsfm3Kaahb3MaMKiKfJox0k2DBvEjlBq2zY+kHnJCj3BjzCte72ezqTu1G6yTHTXvuhmHwVkkpU5JjoT6UWF6l4Ot7AerBb970jAb/WK73l28vhhHzPTljLuYzdf+fI1N8f2DdPYhY0MeFeu85VNftWpmv4g7dsxlkOqPZDEWdJVEDO0zYQmpSlFGRZquRTN3YUgH8Rdezr5AFUOEE5ayXHRY7iVI1cT5e65mSkRYXhJMH47VdZhNtZ6oQ12OKP9cEEkd/ccwMh3Q0mAybuwElCxnucAMnYT5CT6+KNULWeVVTfOZmcJZbfw+3lsCqZ7AxGruEhMfrVDgH2Kk9BvF3yt0mABxqZR0u1+QqTiaaJcUi4akVa8C6kf4n5sflZMU5O+LLqE65trGi9YvId9Ir7opqZtDIkp/xdbi84/icVnO1AH9iGToGE+7mD3/kPbmqrnhRqjAC6WpwptSTmm7iYrw11De/tMx3A1rhH/+ohlaBiGCt3VR1rcBLcxr0rIR/El93wAqqn9VZgsDJ/BiWzQVJgt2QnU9frsa88K2i4vdp4MQQ0o=" #SNYK_TOKEN=
 before_install:
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
   - sudo apt-get update
-  - sudo apt-get -o Dpkg::Options::="--force-confnew" install docker-ce -y  
-before_script:
-- docker pull "$IMAGE_NAME" || true
+  - sudo apt-get -o Dpkg::Options::="--force-confnew" install docker-ce -y
 script:
-- |
-  docker build --pull --cache-from "$IMAGE_NAME" --tag "$IMAGE_NAME" \
-  --label="org.label-schema.build-date=$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-  --label="org.label-schema.vendor=Ocado Technology" \
-  --label="org.label-schema.schema-version=1.0" \
-  --label="org.label-schema.vcs-url=${VCS_SOURCE}" \
-  --label="org.label-schema.version=${TRAVIS_TAG}" \
-  --label="org.label-schema.vcs-ref=${TRAVIS_COMMIT}" \
-  --label="org.opencontainers.image.created=$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-  --label="org.opencontainers.image.vendor=Ocado Technology" \
-  --label="org.opencontainers.image.source=${VCS_SOURCE}" \
-  --label="org.opencontainers.image.version=${TRAVIS_TAG}" \
-  --label="org.opencontainers.image.revision=${TRAVIS_COMMIT}" \
-  --label="org.opencontainers.image.authors=$(git log --format='%aE' Dockerfile | sort -u | tr '\n' ' ')" \
-  .
+- npm install -g snyk && snyk --version
+- ./.travis/docker-build.sh
 after_script:
 - docker images
-before_deploy:
-- docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
-- docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${TRAVIS_TAG}"
 deploy:
   provider: script
-  script: docker push "${IMAGE_NAME}:${TRAVIS_TAG}"
+  script: ./.travis/docker-push.sh
   on:
+    branch: master
     tags: true
-
